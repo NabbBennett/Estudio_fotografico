@@ -2,21 +2,29 @@
 @section('title', 'Inicio')
 
 @section('content')
-<div class="container mt-5">
-    <!-- Hero -->
-    <div class="p-5 mb-5 rounded-3 shadow hero-section text-center text-white">
-        <h1 class="display-4 fw-bold">Capturamos tus mejores momentos</h1>
-        <p class="lead">Bienvenido a nuestro estudio fotográfico profesional. Agenda tu sesión hoy mismo.</p>
-        <a href="{{ route('citas.create') }}" class="btn btn-warning btn-lg mt-3">
+<div class="home-page">
+    <section class="hero-section text-white">
+        <div class="hero-content">
+            <span class="eyebrow">ESTUDIO FOTOGRÁFICO • DESDE 2015</span>
+            <h1>Historias que merecen<br><em>ser recordadas</em></h1>
+            <p>Fotografía natural, emoción real y recuerdos que duran para siempre.</p>
+            <a href="{{ route('citas.create') }}" class="btn btn-warning btn-lg mt-3">
             <i class="bi bi-calendar-plus"></i> Agendar Cita
-        </a>
-    </div>
+            </a>
+            <a href="{{ route('servicios') }}" class="btn btn-outline-light btn-lg mt-3 ms-2">Descubrir servicios</a>
+        </div>
+        <div class="hero-scroll"><i class="bi bi-arrow-down"></i> Explora nuestro trabajo</div>
+    </section>
 
-    <!-- Servicios destacados -->
-    <div class="row text-center mb-5">
-        <h2 class="mb-4">¿Por qué elegirnos?</h2>
+    <section class="container py-5">
+        <div class="section-heading text-center">
+            <span class="eyebrow text-warning">LO HACEMOS ESPECIAL</span>
+            <h2>Momentos que se sienten</h2>
+            <p>Desde una sonrisa espontánea hasta el “sí, acepto”. Estamos ahí para contar tu historia.</p>
+        </div>
+        <div class="row g-4 text-center mt-3">
         <div class="col-md-4 mb-3">
-            <div class="card h-100 shadow-sm border-0">
+            <div class="feature-card h-100">
                 <div class="card-body">
                     <i class="bi bi-camera fs-1 text-warning"></i>
                     <h5 class="card-title mt-3">Equipo Profesional</h5>
@@ -25,7 +33,7 @@
             </div>
         </div>
         <div class="col-md-4 mb-3">
-            <div class="card h-100 shadow-sm border-0">
+            <div class="feature-card h-100">
                 <div class="card-body">
                     <i class="bi bi-palette fs-1 text-warning"></i>
                     <h5 class="card-title mt-3">Edición de Calidad</h5>
@@ -34,7 +42,7 @@
             </div>
         </div>
         <div class="col-md-4 mb-3">
-            <div class="card h-100 shadow-sm border-0">
+            <div class="feature-card h-100">
                 <div class="card-body">
                     <i class="bi bi-clock-history fs-1 text-warning"></i>
                     <h5 class="card-title mt-3">Entrega Rápida</h5>
@@ -43,5 +51,14 @@
             </div>
         </div>
     </div>
+    </section>
+
+    <section class="home-cta text-white text-center">
+        <div class="container">
+            <span class="eyebrow">TU PRÓXIMO RECUERDO COMIENZA AQUÍ</span>
+            <h2>¿Listos para crear algo inolvidable?</h2>
+            <a href="{{ route('contacto') }}" class="btn btn-light btn-lg mt-3">Hablemos de tu idea</a>
+        </div>
+    </section>
 </div>
 @endsection

@@ -1,7 +1,8 @@
-/* Fuente personalizada */
+/* Fuente */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
+    color: #1f2933;
 }
 
 h1, h2, h3, h4 {
@@ -10,12 +11,289 @@ h1, h2, h3, h4 {
 
 /* Hero de la página de inicio */
 .hero-section {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                url('https://picsum.photos/1200/500') center/cover no-repeat;
-    min-height: 400px;
+    background: linear-gradient(90deg, rgba(12, 20, 30, .82), rgba(12, 20, 30, .2)),
+                url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85') center/cover no-repeat;
+    min-height: calc(100vh - 56px);
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 5rem 10%;
+}
+
+.hero-content {
+    max-width: 700px;
+}
+
+.hero-section h1, .services-intro h1 {
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: .98;
+    letter-spacing: -.04em;
+}
+
+.hero-section h1 em, .services-intro h1 em {
+    color: #f7c948;
+    font-style: normal;
+}
+
+.hero-section p, .services-intro p {
+    font-size: 1.2rem;
+    max-width: 520px;
+    opacity: .9;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    margin-bottom: 1.2rem;
+}
+
+.hero-scroll {
+    position: absolute;
+    right: 10%;
+    bottom: 2rem;
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    opacity: .8;
+}
+
+.section-heading {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.section-heading h2, .home-cta h2, .services-footer h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.section-heading p {
+    color: #697586;
+}
+
+.feature-card {
+    padding: 2rem 1.5rem;
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #edf0f2;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(26, 35, 45, .1);
+}
+
+.home-cta, .services-footer {
+    background: black;
+    padding: 6rem 1rem;
+}
+
+.services-intro {
+    min-height: 55vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
+    background: linear-gradient(90deg, rgba(12, 20, 30, .88), rgba(12, 20, 30, .25)),
+                url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=85') center/cover no-repeat;
+}
+
+.services-grid-section {
+    padding: 7rem 0;
+    background: #f7f8fa;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    min-height: 430px;
+    position: relative;
+    border-radius: 22px;
+    color: #fff;
+}
+
+.service-card-inner {
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+    position: relative;
+}
+
+.service-card:hover {
+    box-shadow: 0 22px 40px rgba(19, 30, 42, .2);
+}
+
+.service-card-face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 22px;
+}
+
+.service-card-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    background-position: center;
+    background-size: cover;
+    opacity: 1;
+}
+
+.service-card-front::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 15, 20, .08), rgba(10, 15, 20, .9));
+}
+
+.service-card-front > * {
+    position: relative;
+    z-index: 1;
+}
+
+.service-card-back {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.2rem;
+    background: black;
+}
+
+.service-card.is-flipped .service-card-front {
+    display: none;
+}
+
+.service-card.is-flipped .service-card-back {
+    display: flex;
+    animation: service-card-enter .55s ease both;
+}
+
+@keyframes service-card-enter {
+    from {
+        opacity: 0;
+        transform: rotateY(90deg) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: rotateY(0) scale(1);
+    }
+}
+
+.service-card-back h3 {
+    font-size: 2rem;
+}
+
+.service-card-back ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0;
+}
+
+.service-card-back li {
+    margin-bottom: .6rem;
+}
+
+.service-card-back li::before {
+    content: '✓';
+    color: #f7c948;
+    font-weight: 700;
+    margin-right: .6rem;
+}
+
+.service-price {
+    color: #f7c948;
+    font-size: 1.7rem;
+}
+
+.service-flip-button, .service-action {
+    width: fit-content;
+    border: 0;
+    padding: .7rem 0;
+    color: #f7c948;
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.service-action {
+    padding: .75rem 1rem;
+    border: 1px solid #f7c948;
+    border-radius: 8px;
+}
+
+.service-card-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+}
+
+.service-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.8rem;
+    font-size: 1rem;
+    letter-spacing: .1em;
+    opacity: .75;
+}
+
+.service-icon {
+    color: #f7c948;
+    font-size: 2.4rem;
+    margin-bottom: .75rem;
+}
+
+.service-card h3 {
+    font-size: 2.3rem;
+    margin-bottom: .5rem;
+}
+
+.service-card p {
+    max-width: 380px;
+    margin-bottom: 1.2rem;
+    color: rgba(255, 255, 255, .85);
+}
+
+.service-card a {
+    width: fit-content;
+    color: #f7c948;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.service-card a i {
+    transition: transform .2s ease;
+}
+
+.service-card a:hover i {
+    transform: translate(4px, -4px);
+}
+
+.service-party .service-card-front {
+    background-image: url('https://madeleinefotografia.pe/wp-content/uploads/2023/01/fotos-de-fiestas-infantiles.jpg');
+}
+
+.service-graduation .service-card-front {
+    background-image: url('https://images-pw.pixieset.com/site/BA4lE7/3Y6KWq/fotos-de-grado-diploma-graduada-gimnasio-pereira-a8c680d5-1500.jpg');
+}
+
+.service-wedding .service-card-front {
+    background-image: url('https://images.squarespace-cdn.com/content/v1/5ff5284260aa3e48699810d1/1612035254775-YNWEL9G79C5ZIAPPK56G/wedding-photography-package');
+}
+
+.service-portrait .service-card-front {
+    background-image: url('https://b2472105.assetcdn.net/2.0/2472105/wp-content/uploads/2023/09/Poses-Perfil-Profesional-Mujeres-jul.-12-2023-768x960.jpg?lossy=1&strip=1&webp=1');
 }
 
 /* Hover en la galería */
@@ -25,7 +303,7 @@ h1, h2, h3, h4 {
 
 .galeria-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 8px 20px black !important;
 }
 
 /* Navbar más elegante */
@@ -44,4 +322,32 @@ h1, h2, h3, h4 {
     border-radius: 12px;
 }
 
+@media (max-width: 767.98px) {
+    .hero-section {
+        min-height: 78vh;
+        padding: 4rem 1.5rem;
+    }
 
+    .hero-section .btn {
+        display: block;
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    .hero-scroll {
+        display: none;
+    }
+
+    .services-intro {
+        min-height: 58vh;
+        padding: 4rem 1.5rem;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        min-height: 390px;
+    }
+}
