@@ -2,55 +2,64 @@
 @section('title', 'Panel de Administración')
 
 @section('content')
-<div class="container mt-5">
-    <h2 class="text-danger mb-4"><i class="bi bi-speedometer2"></i> Panel de Administración</h2>
+<div class="admin-page">
+    <section class="admin-hero text-white">
+        <div class="container">
+            <span class="eyebrow text-warning">CENTRO DE CONTROL</span>
+            <h1>Panel de<br><em>administración.</em></h1>
+            <p>Gestiona las citas, usuarios y entregas de tu estudio desde un solo lugar.</p>
+        </div>
+    </section>
 
-    <!-- Tarjetas de estadísticas -->
-    <div class="row mb-5 g-4">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white shadow-sm border-0">
-                <div class="card-body d-flex justify-content-between align-items-center">
+    <section class="admin-content">
+        <div class="container">
+    <div class="admin-stats">
+        <div class="admin-stat-item">
+            <div class="admin-stat-card">
+                <div class="admin-stat-body">
                     <div>
-                        <h6 class="text-uppercase mb-1">Total Citas</h6>
-                        <h2 class="mb-0">{{ $totalCitas }}</h2>
+                        <h6>Total Citas</h6>
+                        <h2>{{ $totalCitas }}</h2>
                     </div>
-                    <i class="bi bi-calendar3 fs-1 opacity-50"></i>
+                    <i class="bi bi-calendar3"></i>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card bg-warning text-dark shadow-sm border-0">
-                <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="admin-stat-item">
+            <div class="admin-stat-card admin-stat-warning">
+                <div class="admin-stat-body">
                     <div>
-                        <h6 class="text-uppercase mb-1">Pendientes</h6>
-                        <h2 class="mb-0">{{ $citasPendientes }}</h2>
+                        <h6>Pendientes</h6>
+                        <h2>{{ $citasPendientes }}</h2>
                     </div>
-                    <i class="bi bi-hourglass-split fs-1 opacity-50"></i>
+                    <i class="bi bi-hourglass-split"></i>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card bg-success text-white shadow-sm border-0">
-                <div class="card-body d-flex justify-content-between align-items-center">
+        <div class="admin-stat-item">
+            <div class="admin-stat-card admin-stat-success">
+                <div class="admin-stat-body">
                     <div>
-                        <h6 class="text-uppercase mb-1">Usuarios</h6>
-                        <h2 class="mb-0">{{ $totalUsuarios }}</h2>
+                        <h6>Usuarios</h6>
+                        <h2>{{ $totalUsuarios }}</h2>
                     </div>
-                    <i class="bi bi-people fs-1 opacity-50"></i>
+                    <i class="bi bi-people"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="text-center">
-        <a href="{{ route('admin.citas') }}" class="btn btn-outline-primary me-2">
+    <div class="admin-actions">
+        <a href="{{ route('admin.citas') }}" class="admin-action-card">
             <i class="bi bi-calendar-check"></i> Gestionar Citas
         </a>
-        <a href="{{ route('admin.usuarios') }}" class="btn btn-outline-success">
+        <a href="{{ route('admin.usuarios') }}" class="admin-action-card">
             <i class="bi bi-people"></i> Ver Usuarios
         </a>
     </div>
+        </div>
+    </section>
 </div>
 @endsection

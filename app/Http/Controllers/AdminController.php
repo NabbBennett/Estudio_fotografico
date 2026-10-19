@@ -46,6 +46,14 @@ class AdminController extends Controller
 
         $cita = Cita::findOrFail($id);
         $cita->update(['estado' => $request->estado]);
+        $cita->refresh();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Estado de la cita actualizado.',
+                'estado' => $cita->estado,
+            ]);
+        }
 
         return back()->with('success', 'Estado de la cita actualizado.');
     }

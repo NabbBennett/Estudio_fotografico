@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('email');
             $table->string('telefono', 20);
-            $table->enum('servicio', ['basico', 'premium', 'boda']);
+            $table->string('servicio');
             $table->date('fecha');
             $table->time('hora');
             $table->text('mensaje')->nullable();

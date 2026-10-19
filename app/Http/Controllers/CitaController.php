@@ -19,8 +19,8 @@ class CitaController extends Controller
         $request->validate([
             'nombre'   => 'required|string|max:255',
             'email'    => 'required|email',
-            'telefono' => 'required|string|max:20',
-            'servicio' => 'required|in:basico,premium,boda',
+            'telefono' => ['required', 'digits:10'],
+            'servicio' => 'required|in:fiesta infantil,graduacion,boda,retrato',
             'fecha'    => 'required|date|after_or_equal:today',
             'hora'     => 'required',
             'mensaje'  => 'nullable|string',
@@ -38,6 +38,6 @@ class CitaController extends Controller
             'estado'   => 'pendiente',
         ]);
 
-        return redirect()->route('home')->with('success', '¡Cita agendada! Te contactaremos para confirmar.');
+        return redirect()->route('usuario.panel')->with('success', '¡Cita agendada! Te contactaremos para confirmar.');
     }
 }

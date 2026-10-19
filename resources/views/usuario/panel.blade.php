@@ -2,118 +2,90 @@
 @section('title', 'Mi Panel')
 
 @section('content')
-<div class="container mt-5">
-    <div class="alert alert-info shadow-sm border-0">
-        <h4 class="mb-1"><i class="bi bi-person-circle"></i> ¡Hola, {{ Auth::user()->name }}!</h4>
-        <p class="mb-0">Bienvenido a tu panel personal. Aquí puedes ver y gestionar tus citas.</p>
-    </div>
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3><i class="bi bi-calendar-check"></i> Mis Citas</h3>
-        <a href="{{ route('citas.create') }}" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Nueva Cita
-        </a>
-    </div>
-
-    @if($citas->isEmpty())
-        <div class="alert alert-warning text-center">
-            <i class="bi bi-info-circle fs-3"></i>
-            <p class="mb-0 mt-2">Aún no tienes citas agendadas.</p>
+<div class="dashboard-page">
+    <section class="dashboard-hero text-white">
+        <div class="container">
+            <div class="dashboard-hero-content">
+                <span class="eyebrow text-warning">MI ESPACIO PERSONAL</span>
+                <h1>Hola, <em>{{ Auth::user()->name }}</em></h1>
+                <p>Aquí puedes seguir tus sesiones, consultar tus citas y descargar tus recuerdos.</p>
+            </div>
+            <div class="dashboard-camera"><i class="bi bi-camera"></i></div>
         </div>
-    @else
-        <div class="table-responsive">
-            <table class="table table-hover bg-white shadow-sm rounded">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Servicio</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+    </section>
+
+    <section class="dashboard-content">
+        <div class="container">
+            @if(session('success'))
+                <div class="alert alert-success border-0 shadow-sm">{{ session('success') }}</div>
+            @endif
+
+            <div class="dashboard-stats">
+                <div class="dashboard-stat"><i class="bi bi-calendar-heart"></i><div><strong>{{ $citas->count() }}</strong><span>Citas registradas</span></div></div>
+                <div class="dashboard-stat"><i class="bi bi-hourglass-split"></i><div><strong>{{ $citas->where('estado', 'pendiente')->count() }}</strong><span>Por confirmar</span></div></div>
+                <div class="dashboard-stat"><i class="bi bi-images"></i><div><strong>{{ $productos->count() }}</strong><span>Entregas disponibles</span></div></div>
+            </div>
+
+            <div class="dashboard-section-heading">
+                <div><span class="eyebrow text-warning">TUS RESERVACIONES</span><h2>Mis citas</h2></div>
+                <a href="{{ route('citas.create') }}" class="dashboard-link">Agendar otra <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+
+            @if($citas->isEmpty())
+                <div class="dashboard-empty"><i class="bi bi-calendar-plus"></i><h3>Aún no tienes citas</h3><p>Tu próxima historia puede comenzar hoy.</p><a href="{{ route('citas.create') }}" class="btn btn-warning">Agendar mi primera cita</a></div>
+            @else
+                <div class="appointment-cards">
                     @foreach($citas as $cita)
-                        <tr>
-                            <td>{{ $cita->id }}</td>
-                            <td class="text-capitalize">{{ $cita->servicio }}</td>
-                            <td>{{ \Carbon\Carbon::parse($cita->fecha)->format('d/m/Y') }}</td>
-                            <td>{{ $cita->hora }}</td>
-                            <td>
+                        <article class="appointment-card">
+                            <div class="appointment-card-date"><strong>{{ \Carbon\Carbon::parse($cita->fecha)->format('d') }}</strong><span>{{ \Carbon\Carbon::parse($cita->fecha)->locale('es')->translatedFormat('M') }}</span></div>
+                            <div class="appointment-card-main"><span class="eyebrow text-warning">CITA #{{ $cita->id }}</span><h3>{{ ucfirst($cita->servicio) }}</h3><p><i class="bi bi-clock"></i> {{ \Carbon\Carbon::parse($cita->hora)->format('H:i') }} hrs</p></div>
+                            <div class="appointment-card-status">
                                 @switch($cita->estado)
                                     @case('pendiente')
-                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                        <span class="status-badge status-pending">Pendiente</span>
                                         @break
                                     @case('confirmada')
-                                        <span class="badge bg-success">Confirmada</span>
+                                        <span class="status-badge status-confirmed">Confirmada</span>
                                         @break
                                     @case('cancelada')
-                                        <span class="badge bg-danger">Cancelada</span>
+                                        <span class="status-badge status-cancelled">Cancelada</span>
                                         @break
                                     @case('completada')
-                                        <span class="badge bg-info text-dark">Completada</span>
+                                        <span class="status-badge status-completed">Completada</span>
                                         @break
                                 @endswitch
-                            </td>
-                            <td>
+                            </div>
+                            <div class="appointment-card-action">
                                 @if($cita->estado === 'pendiente' || $cita->estado === 'confirmada')
                                     <form action="{{ route('citas.cancelar', $cita->id) }}" method="POST" class="d-inline"
                                           onsubmit="return confirm('¿Seguro que deseas cancelar esta cita?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-x-circle"></i> Cancelar
-                                        </button>
+                                        <button class="dashboard-cancel"><i class="bi bi-x-circle"></i> Cancelar</button>
                                     </form>
                                 @else
-                                    <span class="text-muted small">—</span>
+                                    <span class="text-muted small">Sin acciones</span>
                                 @endif
-                            </td>
-                        </tr>
+                            </div>
+                        </article>
                     @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
+                </div>
+            @endif
 
-    <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
-        <h3><i class="bi bi-images"></i> Mis Fotos</h3>
-    </div>
+            <div class="dashboard-section-heading dashboard-photos-heading">
+                <div><span class="eyebrow text-warning">TUS RECUERDOS</span><h2>Mis fotos</h2></div>
+            </div>
 
-    @if($productos->isEmpty())
-        <div class="alert alert-secondary text-center">
-            <i class="bi bi-images fs-3"></i>
-            <p class="mb-0 mt-2">Todavía no tienes fotos disponibles para descargar.</p>
-        </div>
-    @else
-        <div class="table-responsive">
-            <table class="table table-hover bg-white shadow-sm rounded">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Cita</th>
-                        <th>Archivo</th>
-                        <th>Entregado</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
+            @if($productos->isEmpty())
+                <div class="dashboard-empty dashboard-empty-small"><i class="bi bi-images"></i><p>Todavía no tienes fotos disponibles para descargar.</p></div>
+            @else
+                <div class="photo-delivery-grid">
                     @foreach($productos as $producto)
-                        <tr>
-                            <td>#{{ $producto->id }} - {{ ucfirst($producto->servicio) }}</td>
-                            <td>{{ $producto->productos_nombre }}</td>
-                            <td>{{ $producto->productos_subidos_at?->format('d/m/Y H:i') }}</td>
-                            <td>
-                                <a href="{{ route('usuario.descargarProductos', $producto) }}"
-                                   class="btn btn-sm btn-primary">
-                                    <i class="bi bi-download"></i> Descargar ZIP
-                                </a>
-                            </td>
-                        </tr>
+                        <article class="photo-delivery-card"><div class="photo-delivery-icon"><i class="bi bi-file-earmark-zip"></i></div><div><span class="eyebrow text-warning">CITA #{{ $producto->id }}</span><h3>{{ ucfirst($producto->servicio) }}</h3><p>{{ $producto->productos_nombre }}<br><small>Entregado {{ $producto->productos_subidos_at?->format('d/m/Y H:i') }}</small></p></div><a href="{{ route('usuario.descargarProductos', $producto) }}" class="btn btn-dark"><i class="bi bi-download"></i> Descargar</a></article>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            @endif
         </div>
-    @endif
+    </section>
 </div>
 @endsection
