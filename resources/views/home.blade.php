@@ -8,7 +8,7 @@
             <span class="eyebrow">ESTUDIO FOTOGRÁFICO • DESDE 2015</span>
             <h1>Historias que merecen<br><em>ser recordadas</em></h1>
             <p>Fotografía natural, emoción real y recuerdos que duran para siempre.</p>
-            <a href="{{ route('citas.create') }}" class="btn btn-warning btn-lg mt-3">
+            <a href="{{ route('register') }}" class="btn btn-warning btn-lg mt-3">
             <i class="bi bi-calendar-plus"></i> Agendar Cita
             </a>
             <a href="{{ route('servicios') }}" class="btn btn-outline-light btn-lg mt-3 ms-2">Descubrir servicios</a>
